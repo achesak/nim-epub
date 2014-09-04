@@ -12,83 +12,83 @@ import xmltree
 import streams
 
 
-## Represents an ``identifier`` element.
+# Represents an ``identifier`` element.
 type EPUBIdentifier* = tuple[id : string, value : string]
 
-## Represents a ``title`` element.
+# Represents a ``title`` element.
 type EPUBTitle* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``language`` element.
+# Represents a ``language`` element.
 type EPUBLanguage* = tuple[id : string, value : string]
 
-## Represents a ``contributor`` element.
+# Represents a ``contributor`` element.
 type EPUBContributor* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``creator`` element.
+# Represents a ``creator`` element.
 type EPUBCreator* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``source`` element.
+# Represents a ``source`` element.
 type EPUBSource* = tuple[id : string, value : string]
 
-## Represents a ``type`` element.
+# Represents a ``type`` element.
 type EPUBType* = tuple[id : string, value : string]
 
-## Represents a ``description`` element.
+# Represents a ``description`` element.
 type EPUBDescription* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``format`` element.
+# Represents a ``format`` element.
 type EPUBFormat* = tuple[id : string, value : string]
 
-## Represents a ``publisher`` element.
+# Represents a ``publisher`` element.
 type EPUBPublisher* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``relation`` element.
+# Represents a ``relation`` element.
 type EPUBRelation* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``rights`` element.
+# Represents a ``rights`` element.
 type EPUBRights* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``subject`` element.
+# Represents a ``subject`` element.
 type EPUBSubject* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``coverage`` element.
+# Represents a ``coverage`` element.
 type EPUBCoverage* = tuple[id : string, lang : string, dir : string, value : string]
 
-## Represents a ``meta`` element.
+# Represents a ``meta`` element.
 type EPUBMeta* = tuple[property : string, refines : string, id : string, scheme : string, value : string]
 
-## Represents a ``link`` element.
+# Represents a ``link`` element.
 type EPUBLink* = tuple[href : string, rel : string, id : string, refines : string, mediaType : string]
 
-## Represents a ``metadata`` element.
+# Represents a ``metadata`` element.
 type EPUBMetadata* = tuple[identifiers : seq[EPUBIdentifier], titles : seq[EPUBTitle], languages : seq[EPUBLanguage], contributors :
                             seq[EPUBContributor], creators : seq[EPUBCreator], date : string, source : EPUBSource, epubType : EPUBType,
                             metas : seq[EPUBMeta], description : EPUBDescription, format : EPUBFormat, publisher : EPUBPublisher,
                             relation : EPUBRelation, rights : EPUBRights, subject : EPUBSubject, coverage : EPUBCoverage, links : seq[EPUBLink]]
 
-## Represents an ``item`` element.
+# Represents an ``item`` element.
 type EPUBItem* = tuple[id : string, href : string, mediaType : string, fallback : string, properties : string, mediaOverlay : string]
 
-## Represents a ``manifest`` element.
+# Represents a ``manifest`` element.
 type EPUBManifest* = tuple[id : string, items : seq[EPUBItem]]
 
-## Represents an ``itemref`` element.
+# Represents an ``itemref`` element.
 type EPUBItemref* = tuple[idref : string, linear : string, id : string, properties : string]
 
-## Represents a ``spine`` element.
+# Represents a ``spine`` element.
 type EPUBSpine* = tuple[id : string, toc : string, pageProgressionDirection : string, itemrefs : seq[EPUBItemref]]
 
-## Represents a ``mediaType`` element.
+# Represents a ``mediaType`` element.
 type EPUBMediaType* = tuple[mediaType : string, handler : string]
 
-## Represents a ``bindings`` element.
+# Represents a ``bindings`` element.
 type EPUBBindings* = tuple[mediaTypes : seq[EPUBMediaType]]
 
-## Represents the package document.
+# Represents the package document.
 type EPUBPackage* = tuple[version : string, uniqueIdentifier : string, lang : string, dir : string, id : string, metadata : EPUBMetadata,
                            manifest : EPUBManifest, spine : EPUBSpine, bindings : EPUBBindings]
 
-## Represents a ``rootfile`` element.
+# Represents a ``rootfile`` element.
 type EPUBRootFile* = tuple[fullPath : string, mediaType : string]
 
 
