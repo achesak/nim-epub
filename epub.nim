@@ -1,5 +1,5 @@
-# Nimrod module for working with EPUB files.
-# nimrod-epub currently only supports EPUB 3.x.
+# Nim module for working with EPUB files.
+# nim-epub currently only supports EPUB 3.x.
 
 # Written by Adam Chesak.
 # Released under the MIT open source license.
@@ -112,8 +112,8 @@ proc getPackageDocument*(filename : string): string =
     ## Returns an empty string if no valid package document was found.
     
     var container : string = filename & "/META-INF/container.xml"
-    var base : PXmlNode = loadXML(container)
-    var rootfiles : seq[PXmlNode] = base.child("rootfiles").findAll("rootfile")
+    var base : XmlNode = loadXML(container)
+    var rootfiles : seq[XmlNode] = base.child("rootfiles").findAll("rootfile")
     
     for i in rootfiles:
         if i.attr("media-type") == "application/oebps-package+xml":
@@ -127,8 +127,8 @@ proc parseContainer*(filename : string): seq[EPUBRootFile] =
     ## is the location of the EPUB directory.
     
     var container : string = filename & "/META-INF/container.xml"
-    var base : PXmlNode = loadXML(container)
-    var rootfiles : seq[PXmlNode] = base.child("rootfiles").findAll("rootfile")
+    var base : XmlNode = loadXML(container)
+    var rootfiles : seq[XmlNode] = base.child("rootfiles").findAll("rootfile")
     
     var rf = newSeq[EPUBRootFile](len(rootfiles))
     for i in 0..high(rootfiles):
@@ -147,7 +147,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     var path : string = getPackageDocument(filename)
     if path == "":
         return epub
-    var base : PXmlNode = loadXML(path)
+    var base : XmlNode = loadXML(path)
     
     epub.version = base.attr("version")
     epub.uniqueIdentifier = base.attr("unique-identifier")
@@ -158,7 +158,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     var md : EPUBMetaData
     var mdElem = base.child("metadata")
     
-    var id : seq[PXmlNode] = mdElem.findAll("dc:identifier")
+    var id : seq[XmlNode] = mdElem.findAll("dc:identifier")
     var idSeq = newSeq[EPUBIdentifier](len(id))
     for i in 0..high(id):
         var ide : EPUBIdentifier
@@ -167,7 +167,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         idSeq[i] = ide
     md.identifiers = idSeq
     
-    var ti : seq[PXmlNode] = mdElem.findAll("dc:title")
+    var ti : seq[XmlNode] = mdElem.findAll("dc:title")
     var tiSeq = newSeq[EPUBTitle](len(ti))
     for i in 0..high(ti):
         var tie : EPUBTitle
@@ -178,7 +178,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         tiSeq[i] = tie
     md.titles = tiSeq
     
-    var la : seq[PXmlNode] = mdElem.findAll("dc:language")
+    var la : seq[XmlNode] = mdElem.findAll("dc:language")
     var laSeq = newSeq[EPUBLanguage](len(la))
     for i in 0..high(la):
         var lae : EPUBLanguage
@@ -187,7 +187,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         laSeq[i] = lae
     md.languages = laSeq
     
-    var co : seq[PXmlNode] = mdElem.findAll("dc:contributor")
+    var co : seq[XmlNode] = mdElem.findAll("dc:contributor")
     var coSeq = newSeq[EPUBContributor](len(co))
     for i in 0..high(co):
         var coe : EPUBContributor
@@ -198,7 +198,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         coSeq[i] = coe
     md.contributors = coSeq
     
-    var cr : seq[PXmlNode] = mdElem.findAll("dc:creator")
+    var cr : seq[XmlNode] = mdElem.findAll("dc:creator")
     var crSeq = newSeq[EPUBCreator](len(cr))
     for i in 0..high(cr):
         var cre : EPUBCreator
@@ -224,7 +224,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         ty.value = mdElem.child("dc:type").innerText
         md.epubType = ty
     
-    var me : seq[PXmlNode] = mdELem.findAll("meta")
+    var me : seq[XmlNode] = mdELem.findAll("meta")
     var meSeq = newSeq[EPUBMeta](len(me))
     for i in 0..high(me):
         var mee : EPUBMeta
@@ -237,7 +237,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     md.metas = meSeq
     
     if mdElem.child("dc:description") != nil:
-        var desc : PXmlNode = mdElem.child("dc:description")
+        var desc : XmlNode = mdElem.child("dc:description")
         var de : EPUBDescription
         de.id = desc.attr("id")
         de.lang = desc.attr("xml:lang")
@@ -252,7 +252,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         md.format = fo
     
     if mdElem.child("dc:publisher") != nil:
-        var pub : PXmlNode = mdElem.child("dc:publisher")
+        var pub : XmlNode = mdElem.child("dc:publisher")
         var pu : EPUBPublisher
         pu.id = pub.attr("id")
         pu.lang = pub.attr("xml:lang")
@@ -261,7 +261,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         md.publisher = pu
     
     if mdElem.child("dc:relation") != nil:
-        var rel : PXmlNode = mdElem.child("dc:relation")
+        var rel : XmlNode = mdElem.child("dc:relation")
         var re : EPUBRelation
         re.id = rel.attr("id")
         re.lang = rel.attr("xml:lang")
@@ -270,7 +270,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         md.relation = re
     
     if mdElem.child("dc:rights") != nil:
-        var rig : PXmlNode = mdElem.child("dc:rights")
+        var rig : XmlNode = mdElem.child("dc:rights")
         var ri : EPUBRights
         ri.id = rig.attr("id")
         ri.lang = rig.attr("xml:lang")
@@ -279,7 +279,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         md.rights = ri
     
     if mdElem.child("dc:subject") != nil:
-        var sub : PXmlNode = mdElem.child("dc:subject")
+        var sub : XmlNode = mdElem.child("dc:subject")
         var su : EPUBSubject
         su.id = sub.attr("id")
         su.lang = sub.attr("xml:lang")
@@ -288,7 +288,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         md.subject = su
     
     if mdElem.child("dc:coverage") != nil:
-        var cov : PXmlNode = mdElem.child("dc:coverage")
+        var cov : XmlNode = mdElem.child("dc:coverage")
         var cv : EPUBCoverage
         cv.id = cov.attr("id")
         cv.lang = cov.attr("xml:lang")
@@ -296,7 +296,7 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
         cv.value = cov.innerText
         md.coverage = cv
     
-    var li : seq[PXmlNode] = mdELem.findAll("link")
+    var li : seq[XmlNode] = mdELem.findAll("link")
     var liSeq = newSeq[EPUBLink](len(li))
     for i in 0..high(li):
         var lie : EPUBLink
@@ -311,10 +311,10 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     epub.metadata = md
     
     var mn : EPUBManifest
-    var mnElem : PXmlNode = base.child("manifest")
+    var mnElem : XmlNode = base.child("manifest")
     mn.id = mnElem.attr("id")
     
-    var im : seq[PXmlNode] = mnElem.findAll("item")
+    var im : seq[XmlNode] = mnElem.findAll("item")
     var imSeq = newSeq[EPUBItem](len(im))
     for i in 0..high(im):
         var ime : EPUBItem
@@ -330,12 +330,12 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     epub.manifest = mn
     
     var sp : EPUBSpine
-    var spElem : PXmlNode = base.child("spine")
+    var spElem : XmlNode = base.child("spine")
     sp.id = spElem.attr("id")
     sp.toc = spElem.attr("toc")
     sp.pageProgressionDirection = spElem.attr("page-progression-direction")
     
-    var ir : seq[PXmlNode] = spElem.findAll("itemref")
+    var ir : seq[XmlNode] = spElem.findAll("itemref")
     var irSeq = newSeq[EPUBItemref](len(ir))
     for i in 0..high(ir):
         var ire : EPUBItemref
@@ -350,9 +350,9 @@ proc parsePackageDocument*(filename : string): EPUBPackage =
     
     if base.child("bindings") != nil:
         var bi : EPUBBindings
-        var biElem : PXmlNode = base.child("bindings")
+        var biElem : XmlNode = base.child("bindings")
         
-        var mt : seq[PXmlNode] = biElem.findAll("mediaType")
+        var mt : seq[XmlNode] = biElem.findAll("mediaType")
         var mtSeq = newSeq[EPUBMediaType](len(mt))
         for i in 0..high(mt):
             var mte : EPUBMediaType

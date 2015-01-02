@@ -1,9 +1,9 @@
 ---- About ----
 
-nimrod-epub is a Nimrod module for parsing EPUB documents.
+nim-epub is a Nim module for parsing EPUB documents.
 
 See the documentation.html file for usage and more info.
 
 ---- License ----
 
-nimrod-epub is released under the MIT open source license.
+nim-epub is released under the MIT open source license.

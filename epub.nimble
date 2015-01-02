@@ -6,4 +6,4 @@ description = "Module for working with EPUB e-book files"
 license = "MIT"
 
 [Deps]
-Requires: "nimrod >= 0.9.4"
+Requires: "nim>= 0.10.2"
