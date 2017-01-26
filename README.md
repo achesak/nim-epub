@@ -1,9 +1,11 @@
----- About ----
+About
+=====
 
 nim-epub is a Nim module for parsing EPUB documents.
 
-See the documentation.html file for usage and more info.
+Run `nim doc epub.nim` for usage and more info.
 
----- License ----
+License
+=======
 
 nim-epub is released under the MIT open source license.
